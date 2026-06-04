@@ -30,9 +30,6 @@ public class UserResource {
 
 	@GetMapping
 	public ResponseEntity<List<UserDTO>> findAll() {
-		User maria = new User(null, "Maria Silva", "maria@gmail.com");
-		User alex = new User(null, "Alex Green", "alex@gmail.com");
-		User vic = new User(null, "Vic Vega", "mrblonde@gmail.com");
 		List<User> list = service.findAll();
 		List<UserDTO> listDTO = list.stream().map(x -> new UserDTO(x)).collect(Collectors.toList());
 		return ResponseEntity.ok().body(listDTO);
@@ -53,11 +50,11 @@ public class UserResource {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> update(@RequestBody UserDTO objDTO,@PathVariable String id) {
-		User obj = service.fromDTO(objDTO);
-		obj.setId(id);
-		obj = service.insert(obj);
-		return ResponseEntity.noContent().build();
+	public ResponseEntity<Void> update(@RequestBody UserDTO objDTO, @PathVariable String id) {
+	    User obj = service.fromDTO(objDTO);
+	    obj.setId(id);
+	    obj = service.update(obj);
+	    return ResponseEntity.noContent().build();
 	}
 	
 	@DeleteMapping("/{id}")
