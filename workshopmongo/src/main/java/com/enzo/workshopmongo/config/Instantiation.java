@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import com.enzo.workshopmongo.domain.Post;
 import com.enzo.workshopmongo.domain.User;
 import com.enzo.workshopmongo.dto.AuthorDTO;
+import com.enzo.workshopmongo.dto.CommentDTO;
 import com.enzo.workshopmongo.repository.PostRepository;
 import com.enzo.workshopmongo.repository.UserRepository;
 
@@ -42,6 +43,9 @@ public class Instantiation implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/03/2026"), "Good Idea", "I like that",  new AuthorDTO(vic));
 		Post post2 = new Post(null, sdf.parse("21/03/2026"), "You ever listen to K-Billy's \"Super Sounds of the Seventies\" weekend?", "It's my personal favorite.", new AuthorDTO(vic));
 		
+		CommentDTO c1 = new CommentDTO("Great song selection! I always enjoy listening to classic hits from the 70s", sdf.parse("21/03/2026"), new AuthorDTO(alex));
+		
+		post1.getComments().addAll(Arrays.asList(c1));
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));
 		
